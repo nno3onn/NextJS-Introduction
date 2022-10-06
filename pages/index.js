@@ -7,15 +7,39 @@ import Link from "next/link";
 import Seo from "../components/Seo";
 
 export default function Home({ results }) {
+  const router = useRouter();
+  const onClick = (id, title) => {
+    router.push(
+      {
+        pathname: `/movies/${id}`,
+        query: {
+          title,
+        },
+      },
+      // as : query 숨기기. 실제 페이지에 들어가서 useRouter.query에 확인해보면 id, title이 있음
+      `/movies/${id}`
+    );
+  };
+
   return (
     <div className="container">
       <Seo title="Home" />
       {!results && <h4>Loading...</h4>}
       {results?.map((movie) => (
-        <div className="movie" key={movie.id}>
+        <div
+          onClick={() => onClick(movie.id, movie.title)}
+          className="movie"
+          key={movie.id}
+        >
           <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
           <h4>
-            <Link href={`/movies/${movie.id}`}>
+            <Link
+              href={{
+                pathname: `movies/${movie.id}`,
+                query: { title: movie.original_title },
+              }}
+              as={`movies/${movie.id}`}
+            >
               <a>{movie.original_title}</a>
             </Link>
           </h4>
