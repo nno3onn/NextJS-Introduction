@@ -49,8 +49,10 @@ export default function Home({ results }) {
 // 이제 소스코드 안에 html이 모두 들어간다. 그래서 loading할 필요가 없다. API가 돌아오기 전까지 화면에 아무것도 안 보일거다.
 
 // 1. 데이터를 모두 가져온 뒤 띄워서 소스코드에 모든 정보를 보여주거나, 2. 혹은 데이터를 가져오기 전까지 loading을 띄워서 소스코드에 loading만 띄워줄 것인지 선택해야 한다.
+
 // 1의 경우, nextJS가 백엔드에서 받아온 props를 return해서 여기에 가져다 주면, reactJS가 props를 가져와서 그걸 가지고 result Array를 뽑아준다!
 // page가 유저에게 보여지기 전에 props를 받아오는 function을 만들어야 한다.
+// 그리고 유저가 자바스크립트를 활성화하지 않아도 화면이 뜬다!
 // 하지만 1은 유저가 아무것도 보지 못한 채로 오래 기다려야 한다는 단점이 있다.
 export async function getServerSideProps() {
   const { results } = await (
